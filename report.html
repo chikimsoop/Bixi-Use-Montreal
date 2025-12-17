@@ -1,0 +1,137 @@
+<!-- documentation report -->
+
+
+<!DOCTYPE html>
+<!--GEOG 384 group 4 Assignment #1 documentation 2025-->
+<html>
+<head>
+	<style>
+		p{
+			/*<!--text-indent: 3vw;-->*/
+			font-size: 12;
+			font-family: calibri;
+			line-height: 1.5;
+			line-break;
+		}
+		p.report{
+			text-indent: 3vw;
+		}
+		.source{
+			text-indent: -3vw; 
+			padding-left: 3vw;
+		}
+		body{
+			padding: 2vw 2vh;
+			line-height: 1.5;
+		}
+	</style>
+</head>
+
+<body>
+
+<h1>Documentation</h1>
+<h4> GEOG 384, Assignment 1, Group 4: Kimsoo Gopnik, Nick Morton, Matthew Wagman</h4>
+<h4>Finished storymap found at <a href="https://neogeoweb.ca/group4/">neogeoweb.ca/group4</a></h4>
+<p>
+This report highlights the development of the BIXI network in Montreal, seeking to identify the key successes in its design. Hopefully, other regions can learn from this project to develop a strategy to implement their own system. </p>
+<p>
+To highlight BIXI's expansion strategy, we decided to create a map showcasing how the network has changed from year to year. We included data from 2014 to 2024, as that was the data publicly available (BIXI, 2025b). </p>
+<p>To help us plan our approach, we brainstormed then illustrated a storyboard</p>
+<img style="border:3px solid black" src="images/storyboard.jpg" alt="storyboard" height="75%" width ="300vw"><br>
+<i>Figure 1. Storyboard created by the group, illustrated by Kimsoo Gopnik </i>
+
+<p>To start, we show the types of bikes available through the program, to give the audience more of an idea of the use of the network. We found stock images of a classic and an electric BIXI, and ensured the photo files were uploaded to cyberduck and not on a local drive. (BIXI Montreal, 2022). The slider was made using the "JuxtaposeJS" feature on Northwestern University's "knight lab" website. We downloaded images and aligned them using Canva, then uploaded them to the Juxtapose site, which provided code to embed them. </p>
+
+<p>The next chapter includes a video introducing BIXI, which we embedded using a technique learned on W3Schools. This video is meant to give the audience a basic idea of the concept, to contextualize the following sections (BIXI Montreal, 2016). To create the iframes for the BIXI type slider and the embedded Youtube video, we created an element in the html file that could be called on in the javascript. If the record has an attribute 'iframe', it will then create an iframe with 'source' link given in javascript. To embed the Youtube video, Youtube provides embedded code as an option when sharing the video. </p>
+
+<p>For the first geographic chapter, we examine the temporal expansion of the network. This series of maps was inspired by the agency's own yearly announcements of the network's expansion (BIXI, 2025a), seeking to visualize it in an accessible format. Every year, new stations for that year are marked in green, which we figured out how to code using the Mapbox website (Mapbox). We used a 20 meter buffer (in ArcGIS Pro) to determine if a station was new to try to avoid small movements of stations year to year. However, this was not perfect, as a few stations moved as much as a few blocks. Nevertheless, the expansion and densification of the network year by year is clearly visible, demonstrating the BIXI and its municipal partners' desire to make the service available to more and more users and increase its utility, compounding its success. </p>
+
+<p>The point function was built to control how stations appeared and changed year by year. The main styling function accepted a year as input, then used conditional expressions (case statements) to compare each station's (Year_Est) attribute with the selected year. If the station opened that year, it was colored green; if it already existed, it was colored blue. Opacity was reduced if a station's (Year_Est) was greater than the current year, or if the station had a removal year later than the current year. Since Mapbox does not allow variables to be passed directly between functions, we created helper functions for each year that called the main function with the correct input (an approach suggested by a kind stranger in the GIC who helped us troubleshoot the issue). This allowed us to automate the visualization of yearly changes, so that as users scrolled through the storymap, the points dynamically updated to highlight only the stations relevant to that year.
+</p>
+
+<p>To visualize the BIXI station distribution in a different way, we included a choropleth map of the number of stations by borough and municipality for 2024 (Ville de Montreal, 2025a). The number of stations per municipality was determined by taking the 2024 BIXI stations and performing a spatial join in ArcGIS Pro. In Mapbox this was visualized by setting the color value to a conditional statement. Then, we visualized the current bike lane network for Montreal (Ville de Montreal, 2025b), to illuminate the extent of the infrastructure necessary to enable the widespread adoption of the BIXI system. The bike lanes are distinguished as protected or not protected via conditional statements in the chapter.
+
+<p>To show a more granular example of the everyday utility of the BIXI system, we zoomed in on a three-dimensional model of downtown Montreal. To create this map, we subtracted the average given elevations of the buildings from the elevation of the ground, to find the actual heights of the buildings (Ville de Montreal, 2016; Natural Resources Canada, 2025). </p>
+
+<p>Finally, a potential trajectory from the Sherbrooke Metro station (logo: Societe de transport de Montreal, 2010) to the McGill campus (logo: Wikipedia, 2025) is shown, highlighting the seamless convenience of BIXI as a commute mode.</p>
+
+<img style="border:3px solid black" src="images/line_to_json.PNG"alt="features to geoJSON process" height="50%" width ="50%"> <br>
+<em>Figure 2. Process of converting a shp file to a geoJSON using ArcGIS Pro</em>
+
+<br>
+<h2> Sources </h2>
+<div class="source">
+BIXI Montreal (2022). Art bikes parading through Montreal. BIXI Montreal. Retrieved from <a href="https://bixi.com/en/art-bikes/.">https://bixi.com/en/art-bikes/.</a>
+</div>
+<div class="source">
+BIXI Montreal (2025a). Medias. BIXI Montreal. Retrieved from <a href="https://bixi.com/en/medias/.">https://bixi.com/en/medias/.</a></div>
+<div class="source">
+BIXI Montreal (2025b). Open data. BIXI Montreal. Retrieved from <a href="https://bixi.com/en/open-data/.">https://bixi.com/en/open-data/.</a></div>
+<div class="source">
+Google Street View (2022). Street View of Sherbrooke Google Maps,. Retrieved from <a href="https://www.google.com/maps/place/Sherbrooke/@45.5181782,-73.568081,3a,75y,211.83h,82.85t/data=!3m7!1e1!3m5!1s4nwvGnl4W_vJOKYk8EmiPg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.150000000000006%26panoid%3D4nwvGnl4W_vJOKYk8EmiPg%26yaw%3D211.83!7i16384!8i8192!4m7!3m6!1s0x4cc91bb598e80e15:0x36b6ed0de907bfc3!8m2!3d45.5183077!4d-73.568226!10e5!16zL20vMDRzNzJk!5m1!1e2?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D.">https://www.google.com/maps/place/Sherbrooke/@45.5181782,-73.568081,3a,75y,211.83h,82.85t/data=!3m7!1e1!3m5!1s4nwvGnl4W_vJOKYk8EmiPg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.150000000000006%26panoid%3D4nwvGnl4W_vJOKYk8EmiPg%26yaw%3D211.83!7i16384!8i8192!4m7!3m6!1s0x4cc91bb598e80e15:0x36b6ed0de907bfc3!8m2!3d45.5183077!4d-73.568226!10e5!16zL20vMDRzNzJk!5m1!1e2?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D.</a>
+</div>
+<div class="source">
+Google Street View (2022). Street View of Unprotected Bike Lane Google Maps,. Retrieved from <a href="https://www.google.com/maps/@45.5082056,-73.5747599,3a,75y,200.09h,84.78t/data=!3m7!1e1!3m5!1sWrHPo9pH8DiWO0bFa5El7A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D5.2199418807939395%26panoid%3DWrHPo9pH8DiWO0bFa5El7A%26yaw%3D200.08574064741234!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D">https://www.google.com/maps/@45.5082056,-73.5747599,3a,75y,200.09h,84.78t/data=!3m7!1e1!3m5!1sWrHPo9pH8DiWO0bFa5El7A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D5.2199418807939395%26panoid%3DWrHPo9pH8DiWO0bFa5El7A%26yaw%3D200.08574064741234!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D</a> </div>
+<div class="source">
+knight lab (n.d.). JuxtaposeJS,. Retrieved from <a href="https://juxtapose.knightlab.com">https://juxtapose.knightlab.com</a>.</div>
+<div>
+Mapbox (n.d.). layout and paint properties | Help,. Retrieved from <a href="https://docs.mapbox.com//help/glossary/layout-paint-property">https://docs.mapbox.com//help/glossary/layout-paint-property</a>.</div>
+<div>
+Natural Resources Canada (2025). Index of /pub/nrcan_rncan/elevation/cdsm_mnsc,. Retrieved from <a href="https://ftp.geogratis.gc.ca/pub/nrcan_rncan/elevation/cdsm_mnsc/">https://ftp.geogratis.gc.ca/pub/nrcan_rncan/elevation/cdsm_mnsc/</a></div>
+<div class="source">
+Societe de Transport de Montreal (2010). File:Montreal Metro Logo (with text).svg. </div>
+<div class="source">
+Ville de Montreal (2016). Bâtiments - Site web des donnees ouvertes de la Ville de Montreal,. Retrieved from <a href="https://donnees.montreal.ca/fr/dataset/batiment-2d.">https://donnees.montreal.ca/fr/dataset/batiment-2d.</a></div>
+<div class="source">
+Ville de Montreal (2025a). Limites administratives de l'agglomeration de Montreal (arrondissements et villes liees) - Site web des donnees ouvertes de la Ville de Montreal,. Retrieved from <a href="https://donnees.montreal.ca/dataset/limites-administratives-agglomeration">https://donnees.montreal.ca/dataset/limites-administratives-agglomeration</a></div>
+<div class="source">
+Ville de Montreal (2025b). Reseau cyclable - Site web des donnees ouvertes de la Ville de Montreal,. Retrieved from <a href="https://donnees.montreal.ca/dataset/pistes-cyclables">https://donnees.montreal.ca/dataset/pistes-cyclables.</a></div>
+<div class="source">
+W3Schools (n.d.). W3Schools online HTML editor,. Retrieved from <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_video">https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_video.</a></div>
+<div class="source">
+Wikipedia (2025). Heraldry of McGill University. In Wikipedia.
+(2016). BIXI 101: purchasing.
+</div>
+
+<h3> Appendix 1: Individual reflection - Kimsoo Gopnik </h3>
+<b>Parts responsible for</b> <br>
+I managed the logistical aspects of the project, such as ensuring we have everything needed for submissions. I also included all the images, videos, and content featured in the chapter text box. I also was responsible for the stylistic choices such as font size and family, and how the map presented such as zoom and location (to ensure all the BIXI stations were in view for each year). I also uploaded the geoJSONs to Mapbox Data Manager, then to tilesets, then to a style. I created the iframe attribute in the html file that could be called on in the javascript, and managed the formatting on the website (font size, family...). I also formatted the code at the end and added pseudocode to make it more readable. I created the html file for our documentation and formatted that using html style techniques <br>
+<br><b>Customization techniques used</b><br>
+We changed the color of the BIXI stations as they appear and disappear. In the chapter attributes were adjusted to include the option for an iframe. The font style was also customized, as well as image size. <br>
+<br><b>Hoped to do compared to actually accomplished </b><br>
+It took longer than anticipated to figure out some aspects, such as including iframes, so some aspects were abandoned to focus my efforts elsewhere in ways more conducive to the actual project. I also was trying to present the text boxes about the classic and electric BIXIs in a column style so it would be to the left and right of the BIXI slider using some CSS, but again decided to focus efforts elsewhere. Many other aspects of stylistic improvements were also not done due to time restraints and a busy schedule.<br>
+<br><b>Use of dynamic and static spatial data to improve narrative process</b><br>
+Static spatial data, such as the bike paths, stayed constant throughout the process. The dynamic BIXI station locations were able to appear and disappear as the user scrolls through time, and we adjusted the zoom to reflect the growing area of the BIXI network. As more BIXI stations were established, zooming out dynamically emphasizes the geographic spread. <br><br>
+
+<h3> Appendix 2: Individual reflection - Nick Morton</h3>
+<b>Parts responsible for</b><br>
+ I downloaded the administrative boundaries from the Montreal Open Data Portal and converted them into a GeoJSON in ArcGIS Pro. I created the code for adding points, polygons, lines, and buildings to the map and customized their styles. I also built the function to place the BIXI stations on the map by year, including writing separate functions for each year to pass the year into the main styling function. In addition, I developed the walking route from the metro station to McGill by creating points and lines in ArcGIS Pro and linking them through multiple chapters in the storymap. I uploaded the McGill and STM logos, helped with overall styling, cleaned up the code, and adjusted opacity so that layers displayed properly when users scrolled back up.
+<br>
+
+<br><b>Customization techniques used</b><br>
+A key technique I used was applying conditional expressions (case) to filter and display specific attributes within Mapbox layers. For example, I isolated protected bike lanes from the full dataset, and I used conditional styling to adjust color and opacity for lines, polygons (to show how many bike lanes were in each area), and points (through the year function as well as selecting two specific points for the bike route). Learning how to use (case) was the most important customization technique. To represent temporal change, I created functions that changed the color and opacity of BIXI station points by year, calling the main function through a year-specific function. I also created (if) statements in the style part of the html that allowed me to change the color for all data types. Finally, I designed the Bike to McGill chapter, which chained together chapters with changes in location and heading, making it feel like a guided route through the city.
+<br>
+To break it down by technique: the points were best for showing how the BIXI stations changed year by year, which made the expansion immediately clear. The polygons worked best for showing counts, like the number of stations per borough or municipality, so we could compare areas. The lines were important for connectivity, since they showed where protected versus unprotected bike lanes were. The 3D buildings didn't change, but they showed the city in context. Finally, the bike chapter was useful for showing how BIXI's fits into peoples everyday life.
+<br>
+<br><b>Hoped to do compared to actually accomplished</b><br>
+We successfully built the features outlined in our original storyboard, over time our ambitions grew and we turned out to be overly ambitious for the time available. For example, we planned to expand the project with more advanced interactivity. I was hoping to add an animated line as seen in <a href="https://docs.mapbox.com/mapbox-gl-js/example/animate-a-line/">this mapbox tutorial</a>
+<br>
+<br><b>Use of dynamic and spatial data to improve the narrative process</b><br>
+Static spatial data, such as the administrative boundaries and 3D buildings, provided consistent geographic context in the story. Dynamic spatial data, particularly the annual changes in BIXI station locations, demonstrated the rapid growth of the system. The walking route from the metro station to McGill added a more personal narrative, showing users how BIXI bikes can realistically fit into moving through the city.
+<br>
+
+
+<h3> Appendix 3: Individual reflection - Matthew Wagman</h3>
+<b>Parts responsible for</b><br>
+I downloaded and prepared most of the geospatial data and processed it for use in Mapbox. Then I uploaded it to Mapbox, and figured out the process for calling that map (style) into our storymap. I also did the documentation write-up, and the bibliography. Additionally, I helped with the research and code debugging process.<br>
+<br><b>Customization techniques used</b><br>
+For the points, they change color by year based on the timing field I added. Similarly, the buildings are extruded to the height that I calculated from the building height and elevation data. Lastly, unchanging colors were simply loaded into the Mapbox style.<br>
+<br><b>Hoped to do compared to actually accomplished</b><br>
+We wanted to include a much more detailed three-dimensional model of buildings in Montreal. Unfortunately, we had trouble getting this data in the correct format to upload to Mapbox, as it requires a very specific type of file.<br>
+<br><b>Use of dynamic and spatial data to improve the narrative process</b><br>
+The dynamic data of changing BIXI locations by year was the central aspect of our project, creating an accessible visualization of the transformation of the network over time. For static data, the bike lane map and aggregation of BIXI data to boroughs and municipalities highlighted the extent to which biking has spread across the Montreal region.<br>
+
+
+</body>
+
+</html>
